@@ -10,9 +10,6 @@ class CartPoleGeneration:
         self.agents = agents.copy() if agents is not None else [CartPoleAgent() for _ in range(amount_agents)]
         self.amount_agents = amount_agents
 
-    def add_agent(self, agent):
-        self.agents.append(agent)
-
     def get_best_agents(self) -> list:
         percentage_agents = int(len(self.agents) * 0.1) # seleccionar el 10% de los mejores agentes
         sorted_agents = sorted(self.agents, key=lambda agent: agent.fitness, reverse=True)
