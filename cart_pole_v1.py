@@ -15,7 +15,7 @@ class CartPoleGeneration:
 
     def get_best_agents(self) -> list:
         percentage_agents = int(len(self.agents) * 0.1) # seleccionar el 10% de los mejores agentes
-        sorted_agents = sorted(self.agents, key=lambda agent: agent.total_reward, reverse=True)
+        sorted_agents = sorted(self.agents, key=lambda agent: agent.fitness, reverse=True)
         return sorted_agents[:percentage_agents]
 
     def crossover(self, agents: list, crossover_agents: list) -> list:
@@ -48,20 +48,20 @@ class CartPoleGeneration:
     
     def calculate_generation_fitness(self) -> float:
         best_agent = self.get_best_agents()[0]
-        return best_agent.total_reward
+        return best_agent.fitness
 
 
 class CartPoleAgent:
     def __init__(self, weights=None):
-        self.total_reward = 0
+        self.fitness = 0
         self.weights = weights if weights is not None else np.random.uniform(-1, 1, 4) # pesos para las 4 observaciones del cart-pole
 
     def act(self, observation: tuple) -> int:
         action = 1 if np.dot(self.weights, observation) > 0 else 0
         return action
-        
-    def set_total_reward(self, reward: float):
-        self.total_reward = reward
+
+    def set_fitness(self, fitness: float):
+        self.fitness = fitness
 
 env = gym.make("CartPole-v1")
 
@@ -85,14 +85,14 @@ for _ in range(AMOUNT_OF_GENERATIONS):
             total_reward += reward
             finished = terminated or truncated
 
-        cart_pole_agent.set_total_reward(total_reward)
+        cart_pole_agent.set_fitness(total_reward)
 
     print(f"Mejor agente de la generación {_} tiene recompensa total: {new_generation.calculate_generation_fitness()}")
     generation = new_generation
 
 best_agent = generation.get_best_agents()[0]
 
-print("Recompensa total del mejor agente:", best_agent.total_reward)
+print("Recompensa total del mejor agente:", best_agent.fitness)
 
 env = gym.make("CartPole-v1", render_mode="human")
 observation, info = env.reset()
