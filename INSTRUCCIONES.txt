@@ -1,0 +1,47 @@
+PROYECTO: Algoritmos Genéticos — CartPole-v1
+Estudiantes: Cristopher Acuña y Jerson Prendas.
+
+Requisitos
+- Python 3.12 instalado y en PATH.
+
+Instalación de dependencias
+1) Instalar Poetry (si no lo tienes):
+   (consulta https://python-poetry.org/docs/#installation)
+2) Instalar dependencias del proyecto:
+   poetry install
+3) Ejecutar dentro del entorno Poetry
+
+Ejecución rápida
+1) Asegúrate de estar en la carpeta del proyecto:
+   cd "...\Tar02-Algoritmos-Geneticos"
+2) Ejecutar el script de simulación o el de analisis segun tu objetivo (solo entrenar oentrenara y graficar):
+     phyton cart_pole_v1.py || python analisis_estadistico.py
+
+Qué hace cada script
+- cart_pole_v1.py
+  - Ejecuta el algoritmo genético con la configuración actual (AMOUNT_OF_AGENTS, AMOUNT_OF_GENERATIONS, MUTATION_RATE).
+  - Imprime por consola el mejor fitness de cada generación.
+  - Al finalizar, simula al mejor agente y muestra su recompensa total.
+  - Expone listas globales con las métricas por generación:
+    - max_fitness_in_gen: mejor recompensa por generación.
+    - avg_fitness_in_gen: recompensa promedio por generación.
+
+- analisis_estadistico.py
+  - Importa cart_pole_v1, por lo que se ejecuta la simulación configurada.
+  - Lee max_fitness_in_gen y avg_fitness_in_gen para imprimir y graficar.
+  - Guarda la figura en un archivo PNG con nombre:
+    evolutiongraph_{AGENTS}agents_{GENS}gens_{MUT}mut.png
+
+Dónde ver los resultados
+- Consola: verás el progreso por generación y la recompensa final del mejor agente.
+- Archivo de imagen: se guarda en la carpeta del proyecto con el nombre indicado.
+
+Cambiar parámetros
+- Edita en cart_pole_v1.py:
+  - AMOUNT_OF_AGENTS: tamaño de la población.
+  - AMOUNT_OF_GENERATIONS: número de generaciones a ejecutar.
+  - MUTATION_RATE: probabilidad de mutar cada peso.
+
+Comandos útiles 
+- Ejecutar análisis: python analisis_estadistico.py
+- Ejecutar entrenamiento solo: python cart_pole_v1.py
